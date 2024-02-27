@@ -17,11 +17,7 @@ body{
     min-width: 1600px;
     /* max-width: 6200px; */
   }
-  /* @media (max-width: 1600px) {
-    .gridContainer {
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    }
-  } */
+
   .gridSquare {
     background-color: #2f1643; 
     width: 100%;
