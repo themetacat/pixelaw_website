@@ -40,9 +40,9 @@ export function createSystemCalls(
      * is in the root namespace, `.increment` can be called directly
      * on the World contract.
      */
-    const tx = await worldContract.write.increment();
-    await waitForTransaction(tx);
-    return getComponentValue(Counter, singletonEntity);
+    // const tx = await worldContract.write.increment();
+    // await waitForTransaction(tx);
+    // return getComponentValue(Counter, singletonEntity);
   };
 
   return {
