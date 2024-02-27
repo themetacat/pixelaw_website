@@ -147,7 +147,7 @@ const App = () => {
       const startColForRow = startCols[i];
      
       for (let j = 0; j < numCols; j++) {
-        const row = [];
+      
         if (
           i >= startRow &&
           i < startRow + 7 &&
