@@ -189,8 +189,24 @@ const App = () => {
             className = styles.gridSquareWhite;
           }
 
+          // grids.push(
+          //   <div key={`${i}-${j}`} className={className}>
           grids.push(
-            <div key={`${i}-${j}`} className={className}>
+            <div 
+              key={`${i}-${j}`} 
+              className={className}
+              onClick={() => { 
+                if (className === styles.gridSquareBlue) {
+                  window.open('https://pixelaw.github.io/book/index.html')
+                } else if (className === styles.gridSquareGreen) {
+                  window.open('https://github.com/pixelaw/')
+                }else if(className === styles.gridSquareOrange){
+                  window.open('https://pixelaw-core.vercel.app/')
+                }else if(className === styles.gridSquareBrown){
+                  window.open('https://demo.pixelaw.xyz/')
+                }
+              }}
+            >
               {i === startRow && j === startColForRow + 1 && (
                 <span className={styles.text}>Docs</span>
               )}
