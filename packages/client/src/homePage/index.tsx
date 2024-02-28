@@ -18,8 +18,9 @@ const App = () => {
          setGridWidth(1600);
       setGridHeight(900);
       }else{
-    //  setGridWidth(1600);
+    //  setGridWidth(1920);
     //   setGridHeight(900);
+    console.log(window.innerWidth)
       setGridWidth(window.innerWidth);
       setGridHeight(window.innerHeight);
       }
@@ -40,9 +41,15 @@ const App = () => {
     // const containerHeight = containerRef.current.offsetHeight;
     // const numCols = Math.floor(containerWidth / 64);
     // const numRows = Math.floor(containerHeight / 64);
-    const numCols = Math.floor(gridWidth / 64);
-    const numRows = Math.floor(gridHeight / 64);
-   
+    // const numCols = Math.floor(gridWidth / 64);
+    // const numRows = Math.floor(gridHeight / 64);
+    const tempNumCols = Math.floor((gridWidth + 2) / (64 + 2)); // 先计算不考虑 numCols 的部分
+    const numCols = tempNumCols < 1 ? 1 : tempNumCols;            // 根据计算结果再次确定 numCols
+
+
+
+const numRows = Math.floor(gridHeight / (64 + 2));
+   console.log(numCols,numRows)
     const grids = [];
     // if(window.innerWidth<=1600||window.innerWidth>=2100){
       if(gridWidth === 1600&&gridHeight===900){
@@ -52,7 +59,7 @@ const App = () => {
       const startCol = Math.floor(numCols / 3) ; // 起始列，使正方形位于中间
       const startCols = Array.from(
         { length: 10 },
-        (_, index) => startCol - index
+        (_, index) => startCol 
       ); // 生成每行的起始列数组
       for (let i = 0; i < numRows; i++) {
         const startColForRow = startCols[i];
@@ -134,15 +141,231 @@ const App = () => {
         }
       }
     }
-    else{
+    else if(window.innerWidth  >= 1647&&window.innerWidth  <= 1663){
+
+      const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
+      const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
+      const startCols = Array.from(
+        { length: 10 },
+        (_, index) => startCol-index
+      ); // 生成每行的起始列数组
+      
+      for (let i = 0; i < numRows; i++) {
+        const startColForRow = startCols[i];
+       
+        for (let j = 0; j < numCols; j++) {
+        
+          if (
+            i >= startRow &&
+            i < startRow + 7 &&
+            j >= startColForRow &&
+            j < startColForRow + 7 &&
+            !(i === startRow + 3 || j === startColForRow + 3)
+          ) {
+            let className = "";
+            if (
+              i >= startRow &&
+              i < startRow + 3 &&
+              j >= startColForRow &&
+              j < startColForRow + 3
+            ) {
+              className = styles.gridSquareBlue;
+           
+            } else if (
+              i >= startRow + 4 &&
+              i < startRow + 7 &&
+              j >= startColForRow + 4 &&
+              j < startColForRow + 7
+            ) {
+              className = styles.gridSquareBrown;
+            } else if (
+              i >= startRow &&
+              i < startRow + 3 &&
+              j >= startColForRow + 4 &&
+              j < startColForRow + 7
+            ) {
+              className = styles.gridSquareGreen;
+            } else if (
+              i >= startRow + 4 &&
+              i < startRow + 7 &&
+              j >= startColForRow &&
+              j < startColForRow + 3
+            ) {
+              className = styles.gridSquareOrange;
+            } else {
+              className = styles.gridSquareWhite;
+            }
+  
+            // grids.push(
+            //   <div key={`${i}-${j}`} className={className}>
+            grids.push(
+              <div 
+                key={`${i}-${j}`} 
+                className={className}
+                onClick={() => { 
+                  if (className === styles.gridSquareBlue) {
+                    window.open('https://pixelaw.github.io/book/index.html')
+                  } else if (className === styles.gridSquareGreen) {
+                    window.open('https://github.com/pixelaw/')
+                  }else if(className === styles.gridSquareOrange){
+                    window.open('https://pixelaw-core.vercel.app/')
+                  }else if(className === styles.gridSquareBrown){
+                    window.open('https://demo.pixelaw.xyz/')
+                  }
+                }}
+              >
+                {i === startRow && j === startColForRow + 1 && (
+                  <span className={styles.text}>Docs</span>
+                )}
+                {i === startRow + 1 && j === startColForRow + 1 && (
+                   <img  className={styles.imgIcon}  src={One} alt="" />
+                )}
+                {i === startRow && j === startColForRow + 5 && (
+                    <span className={styles.text}>Code</span>
+                )}
+                {i === startRow +1&& j === startColForRow + 5 && (
+                      <img className={styles.imgIcon} src={Two} alt="" />
+                )}
+                {i === startRow+5 && j === startColForRow +1 && (
+                   <img  className={styles.imgIcon}  src={Three} alt="" />
+                )}
+                {i === startRow+4 && j === startColForRow +1 && (
+                    <span className={styles.text}>Play</span>
+                )}
+                {i === startRow+4 && j === startColForRow + 5 && (
+                    <span className={styles.text}>Play</span>
+                )}
+                {i === startRow+5 && j === startColForRow + 5 && (
+                      <img className={styles.imgIcon}  src={Four} alt="" />
+                )}
+              </div>
+            );
+          } else {
+            grids.push(
+              <div key={`${i}-${j}`} className={styles.gridSquare}></div>
+            );
+          }
+          }
+          }
+    }
+    else if(gridHeight<900){
+      const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
+      const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
+      const startCols = Array.from(
+        { length: 10 },
+        (_, index) => startCol-index
+      ); // 生成每行的起始列数组
+      
+      for (let i = 0; i < numRows; i++) {
+        const startColForRow = startCols[i];
+       
+        for (let j = 0; j < numCols; j++) {
+        
+          if (
+            i >= startRow &&
+            i < startRow + 7 &&
+            j >= startColForRow &&
+            j < startColForRow + 7 &&
+            !(i === startRow + 3 || j === startColForRow + 3)
+          ) {
+            let className = "";
+            if (
+              i >= startRow &&
+              i < startRow + 3 &&
+              j >= startColForRow &&
+              j < startColForRow + 3
+            ) {
+              className = styles.gridSquareBlue;
+           
+            } else if (
+              i >= startRow + 4 &&
+              i < startRow + 7 &&
+              j >= startColForRow + 4 &&
+              j < startColForRow + 7
+            ) {
+              className = styles.gridSquareBrown;
+            } else if (
+              i >= startRow &&
+              i < startRow + 3 &&
+              j >= startColForRow + 4 &&
+              j < startColForRow + 7
+            ) {
+              className = styles.gridSquareGreen;
+            } else if (
+              i >= startRow + 4 &&
+              i < startRow + 7 &&
+              j >= startColForRow &&
+              j < startColForRow + 3
+            ) {
+              className = styles.gridSquareOrange;
+            } else {
+              className = styles.gridSquareWhite;
+            }
+  
+            // grids.push(
+            //   <div key={`${i}-${j}`} className={className}>
+            grids.push(
+              <div 
+                key={`${i}-${j}`} 
+                className={className}
+                onClick={() => { 
+                  if (className === styles.gridSquareBlue) {
+                    window.open('https://pixelaw.github.io/book/index.html')
+                  } else if (className === styles.gridSquareGreen) {
+                    window.open('https://github.com/pixelaw/')
+                  }else if(className === styles.gridSquareOrange){
+                    window.open('https://pixelaw-core.vercel.app/')
+                  }else if(className === styles.gridSquareBrown){
+                    window.open('https://demo.pixelaw.xyz/')
+                  }
+                }}
+              >
+                {i === startRow && j === startColForRow + 1 && (
+                  <span className={styles.text}>Docs</span>
+                )}
+                {i === startRow + 1 && j === startColForRow + 1 && (
+                   <img  className={styles.imgIcon}  src={One} alt="" />
+                )}
+                {i === startRow && j === startColForRow + 5 && (
+                    <span className={styles.text}>Code</span>
+                )}
+                {i === startRow +1&& j === startColForRow + 5 && (
+                      <img className={styles.imgIcon} src={Two} alt="" />
+                )}
+                {i === startRow+5 && j === startColForRow +1 && (
+                   <img  className={styles.imgIcon}  src={Three} alt="" />
+                )}
+                {i === startRow+4 && j === startColForRow +1 && (
+                    <span className={styles.text}>Play</span>
+                )}
+                {i === startRow+4 && j === startColForRow + 5 && (
+                    <span className={styles.text}>Play</span>
+                )}
+                {i === startRow+5 && j === startColForRow + 5 && (
+                      <img className={styles.imgIcon}  src={Four} alt="" />
+                )}
+              </div>
+            );
+          } else {
+            grids.push(
+              <div key={`${i}-${j}`} className={styles.gridSquare}></div>
+            );
+          }
+          
+        }
+      }
+            
+    }
+    else {
 
 
     const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
     const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
     const startCols = Array.from(
       { length: 10 },
-      (_, index) => startCol - index
+      (_, index) => startCol
     ); // 生成每行的起始列数组
+    
     for (let i = 0; i < numRows; i++) {
       const startColForRow = startCols[i];
      
