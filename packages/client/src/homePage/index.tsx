@@ -473,7 +473,7 @@ const numRows = Math.floor(gridHeight / (64 + 2));
   // window.addEventListener("resize", () => {
   //  renderGrid();
   //  //console.log('变化了！！！！！')
-  //   // 将 grids 渲染到你的页面上，例如更新 state 或直接操作 DOM
+  //   // 将 grids 渲染到页面上，例如更新 state 或直接操作 DOM
   // });
   const containerRef = useRef<HTMLDivElement | null>(null);
 
