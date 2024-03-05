@@ -1,534 +1,254 @@
-import React, { useEffect, useState, useRef } from "react";
-import styles from "./index.module.css"; // 导入样式文件
+import React, { useEffect, useRef } from "react";
+import styles from "./index.module.css"; // 假设您已经有这个样式文件
 
-
-import Three from './20240226161337.png';
-import One from './20240226161301.png';
-import Four from './20240226161401.png';
-import Two from './20240226161621.png';
+import OneImge from "./20240226161301.png";
+import ThreeImge from "./20240226161337.png";
+import TwoImge from "./20240226161621.png";
+import FourImge from "./20240226161401.png";
 
 const App = () => {
-  const [gridWidth, setGridWidth] = useState(0);
-  const [gridHeight, setGridHeight] = useState(0);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const updateDimensions = () => {
-      if(window.innerWidth<=1600||window.innerWidth>=2100){
-        ////console.log('q111')
-         setGridWidth(1600);
-      setGridHeight(900);
-      }else{
-    //  setGridWidth(1920);
-    //   setGridHeight(900);
-    //console.log(window.innerWidth)
-      setGridWidth(window.innerWidth);
-      setGridHeight(window.innerHeight);
+    if (canvasRef.current) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+
+      if (ctx) {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight - 60; // Adjust for the top container height
+        canvas.width = screenWidth;
+        canvas.height = screenHeight;
+
+        const len = screenHeight / 15; // 定义每个小格子的边长
+
+        // 绘制整个canvas的网格线
+        ctx.strokeStyle = "#260737"; // Black color for grid lines
+
+        // 绘制网格线
+        for (let i = 0.5; i < screenWidth; i += len) {
+          ctx.beginPath();
+          ctx.moveTo(i, 0);
+          ctx.lineTo(i, screenHeight);
+          ctx.stroke();
+        }
+        for (let i = 0.5; i < screenHeight; i += len) {
+          ctx.beginPath();
+          ctx.moveTo(0, i);
+          ctx.lineTo(screenWidth, i);
+          ctx.stroke();
+        }
+
+        // 绘制颜色区域
+        const colors = ["#0300af", "#00af27", "#af5400", "#4e7d38"]; // Red, Blue, White, Black
+        const startRow = Math.floor(screenHeight / 2 / len) - 3;
+        const startCol = Math.floor(screenWidth / 2 / len) - 3;
+
+        // 绘制小方格的网格线
+        ctx.strokeStyle = "#2d0d3e"; // Black color for grid lines
+        // 绘制颜色区域和小方格的网格线
+        ctx.font = "12px Arial"; // 设置字体样式和大小
+        ctx.fillStyle = "#000"; // 设置文字颜色为黑色
+
+        // 遍历每个小方格
+        for (let row = 0; row < 7; row++) {
+          if (row === 3) continue; // 跳过中间行
+          for (let col = 0; col < 7; col++) {
+            if (col === 3) continue; // 跳过中间列
+
+            const x = (startCol + col) * len;
+            const y = (startRow + row) * len;
+
+            let colorIndex = 0;
+            if (row < 3 && col >= 3) colorIndex = 1; // 右上角蓝色
+            else if (row >= 3 && col < 3) colorIndex = 2; // 左下角白色
+            else if (row >= 3 && col >= 3) colorIndex = 3; // 右下角黑色
+
+            ctx.fillStyle = colors[colorIndex];
+
+            // 在2*1位置写入颜色和数字
+            if (row === 0 && col === 1) {
+              ctx.fillRect(x, y, len, len);
+              ctx.fillStyle = "#fff"; // 设置文字颜色为黑色
+              ctx.textAlign = "center"; // 设置文本水平居中
+              ctx.font =
+                '15px system-ui, "Segoe UI", "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+
+              ctx.fillText("Docs", x + len / 2, y + len / 1.5);
+              ctx.textBaseline = "middle"; // 设置基线为垂直居中
+            } else if (row === 4 && col === 1) {
+              ctx.fillRect(x, y, len, len);
+              ctx.fillStyle = "#fff"; // 设置文字颜色为黑色
+              ctx.textAlign = "center"; // 设置文本水平居中
+              ctx.font =
+                '15px system-ui, "Segoe UI", "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+
+              ctx.fillText("Play", x + len / 2, y + len / 1.8);
+              ctx.textBaseline = "middle"; // 设置基线为垂直居中
+            } else if (row === 0 && col === 5) {
+              ctx.fillRect(x, y, len, len);
+              ctx.fillStyle = "#fff"; // 设置文字颜色为黑色
+              ctx.textAlign = "center"; // 设置文本水平居中
+              ctx.font =
+                '15px system-ui, "Segoe UI", "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+
+              ctx.fillText("Code", x + len / 2, y + len / 1.8);
+              ctx.textBaseline = "middle"; // 设置基线为垂直居中
+            } else if (row === 4 && col === 5) {
+              ctx.fillRect(x, y, len, len);
+              ctx.fillStyle = "#fff"; // 设置文字颜色为黑色
+              ctx.textAlign = "center"; // 设置文本水平居中
+              ctx.font =
+                '15px system-ui, "Segoe UI", "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+
+              ctx.fillText("Play", x + len / 2, y + len / 1.8);
+              ctx.textBaseline = "middle"; // 设置基线为垂直居中
+            } else {
+              ctx.fillRect(x, y, len, len);
+            }
+
+            // 绘制小方格的网格线
+            ctx.strokeStyle = "#2d0d3e"; // Black color for grid lines
+            ctx.strokeRect(x, y, len, len);
+
+            // 创建一个新的image对象
+            const imgOne = new Image();
+            const imgTwo = new Image();
+            const imgThree = new Image();
+            const imgFour = new Image();
+
+            // 指定图片的URL
+            imgOne.src = OneImge;
+            imgTwo.src = TwoImge;
+            imgThree.src = ThreeImge;
+            imgFour.src = FourImge;
+
+            // 当图片加载完成后绘制到画布上
+            imgOne.onload = function () {
+              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+
+              // 在特定位置绘制图片一
+              if (row === 1 && col === 1) {
+                ctx.drawImage(
+                  imgOne,
+                  x + xOffsetOne,
+                  y + yOffsetOne,
+                  imgOne.width,
+                  imgOne.height
+                );
+              }
+            };
+
+            imgTwo.onload = function () {
+              // 在特定位置绘制图片
+              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+
+              // 在特定位置绘制图片一
+
+              if (row === 1 && col === 5) {
+                ctx.drawImage(
+                  imgTwo,
+                  x + xOffsetOne,
+                  y + yOffsetOne,
+                  imgOne.width,
+                  imgOne.height
+                );
+              }
+            };
+            imgThree.onload = function () {
+              // 在特定位置绘制图片
+              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              if (row === 5 && col === 1) {
+                ctx.drawImage(
+                  imgThree,
+                  x + xOffsetOne,
+                  y + yOffsetOne,
+                  imgOne.width,
+                  imgOne.height
+                );
+              }
+            };
+            imgFour.onload = function () {
+              // 在特定位置绘制图片
+              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              if (row === 5 && col === 5) {
+                ctx.drawImage(
+                  imgFour,
+                  x + xOffsetOne,
+                  y + yOffsetOne,
+                  imgOne.width,
+                  imgOne.height
+                );
+              }
+            };
+          }
+        }
+
+        // 添加点击事件处理
+        const handleClick = (event: any) => {
+          const rect = canvas.getBoundingClientRect();
+          const x = event.clientX - rect.left;
+          const y = event.clientY - rect.top;
+
+          const colClicked = Math.floor(x / len) - startCol;
+          const rowClicked = Math.floor(y / len) - startRow;
+
+          if (
+            rowClicked >= 0 &&
+            rowClicked < 7 &&
+            colClicked >= 0 &&
+            colClicked < 7
+          ) {
+            if (rowClicked === 3 || colClicked === 3) return; // 忽略中间行和列
+
+            let quadrant;
+            if (rowClicked < 3 && colClicked < 3) {
+              window.open("https://pixelaw.github.io/book/index.html");
+            } else if (rowClicked < 3 && colClicked > 3) {
+              window.open("https://github.com/pixelaw/");
+            } else if (rowClicked > 3 && colClicked < 3) {
+              window.open("https://pixelaw-core.vercel.app/");
+            } else if (rowClicked > 3 && colClicked > 3) {
+              window.open("https://demo.pixelaw.xyz/");
+            }
+
+            // console.log(`Clicked on quadrant: ${quadrant}`);
+          }
+        };
+
+        canvas.addEventListener("click", handleClick);
+
+        return () => {
+          canvas.removeEventListener("click", handleClick);
+        };
       }
-      
-    };
-////console.log(window.innerWidth,window.innerHeight,'---------------')
-    updateDimensions(); // 初始化
-
-    window.addEventListener("resize", updateDimensions); // 监听窗口大小变化
-
-    return () => {
-      window.removeEventListener("resize", updateDimensions); // 清除监听器
-    };
+    }
   }, []);
-
-  const renderGrid = () => {
-    // const containerWidth = containerRef.current.offsetWidth;
-    // const containerHeight = containerRef.current.offsetHeight;
-    // const numCols = Math.floor(containerWidth / 64);
-    // const numRows = Math.floor(containerHeight / 64);
-    // const numCols = Math.floor(gridWidth / 64);
-    // const numRows = Math.floor(gridHeight / 64);
-    const tempNumCols = Math.floor((gridWidth + 2) / (64 + 2)); // 先计算不考虑 numCols 的部分
-    const numCols = tempNumCols < 1 ? 1 : tempNumCols;            // 根据计算结果再次确定 numCols
-
-
-
-const numRows = Math.floor(gridHeight / (64 + 2));
-   //console.log(numCols,numRows)
-    const grids = [];
-    // if(window.innerWidth<=1600||window.innerWidth>=2100){
-      if(gridWidth === 1600&&gridHeight===900){
-   ////console.log(gridWidth,'================================')
-    
-      const startRow = Math.floor(numRows / 5) - 1; // 起始行，使正方形位于中间
-      const startCol = Math.floor(numCols / 3) ; // 起始列，使正方形位于中间
-      const startCols = Array.from(
-        { length: 10 },
-        (_, index) => startCol 
-      ); // 生成每行的起始列数组
-      for (let i = 0; i < numRows; i++) {
-        const startColForRow = startCols[i];
-  
-        for (let j = 0; j < numCols; j++) {
-          if (
-            i >= startRow &&
-            i < startRow + 7 &&
-            j >= startColForRow &&
-            j < startColForRow + 7 &&
-            !(i === startRow + 3 || j === startColForRow + 3)
-          ) {
-            let className = "";
-            if (
-              i >= startRow &&
-              i < startRow + 3 &&
-              j >= startColForRow &&
-              j < startColForRow + 3
-            ) {
-              className = styles.gridSquareBlue;
-            } else if (
-              i >= startRow + 4 &&
-              i < startRow + 7 &&
-              j >= startColForRow + 4 &&
-              j < startColForRow + 7
-            ) {
-              className = styles.gridSquareBrown;
-            } else if (
-              i >= startRow &&
-              i < startRow + 3 &&
-              j >= startColForRow + 4 &&
-              j < startColForRow + 7
-            ) {
-              className = styles.gridSquareGreen;
-            } else if (
-              i >= startRow + 4 &&
-              i < startRow + 7 &&
-              j >= startColForRow &&
-              j < startColForRow + 3
-            ) {
-              className = styles.gridSquareOrange;
-            } else {
-              className = styles.gridSquareWhite;
-            }
-  
-            grids.push(
-              <div key={`${i}-${j}`} className={className}>
-                {i === startRow && j === startColForRow + 1 && (
-                  <span className={styles.text}>Docs</span>
-                )}
-                {i === startRow + 1 && j === startColForRow + 1 && (
-                   <img  className={styles.imgIcon}  src={One} alt="" />
-                )}
-                {i === startRow && j === startColForRow + 5 && (
-                    <span className={styles.text}>Code</span>
-                )}
-                {i === startRow +1&& j === startColForRow + 5 && (
-                      <img className={styles.imgIcon} src={Two} alt="" />
-                )}
-                {i === startRow+5 && j === startColForRow +1 && (
-                   <img  className={styles.imgIcon}  src={Three} alt="" />
-                )}
-                {i === startRow+4 && j === startColForRow +1 && (
-                    <span className={styles.text}>Play</span>
-                )}
-                {i === startRow+4 && j === startColForRow + 5 && (
-                    <span className={styles.text}>Play</span>
-                )}
-                {i === startRow+5 && j === startColForRow + 5 && (
-                      <img className={styles.imgIcon}  src={Four} alt="" />
-                )}
-              </div>
-            );
-          } else {
-            grids.push(
-              <div key={`${i}-${j}`} className={styles.gridSquare}></div>
-            );
-          }
-        }
-      }
-    }
-    else if(window.innerWidth  >= 1647&&window.innerWidth  <= 1663){
-
-      const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
-      const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
-      const startCols = Array.from(
-        { length: 10 },
-        (_, index) => startCol-index
-      ); // 生成每行的起始列数组
-      
-      for (let i = 0; i < numRows; i++) {
-        const startColForRow = startCols[i];
-       
-        for (let j = 0; j < numCols; j++) {
-        
-          if (
-            i >= startRow &&
-            i < startRow + 7 &&
-            j >= startColForRow &&
-            j < startColForRow + 7 &&
-            !(i === startRow + 3 || j === startColForRow + 3)
-          ) {
-            let className = "";
-            if (
-              i >= startRow &&
-              i < startRow + 3 &&
-              j >= startColForRow &&
-              j < startColForRow + 3
-            ) {
-              className = styles.gridSquareBlue;
-           
-            } else if (
-              i >= startRow + 4 &&
-              i < startRow + 7 &&
-              j >= startColForRow + 4 &&
-              j < startColForRow + 7
-            ) {
-              className = styles.gridSquareBrown;
-            } else if (
-              i >= startRow &&
-              i < startRow + 3 &&
-              j >= startColForRow + 4 &&
-              j < startColForRow + 7
-            ) {
-              className = styles.gridSquareGreen;
-            } else if (
-              i >= startRow + 4 &&
-              i < startRow + 7 &&
-              j >= startColForRow &&
-              j < startColForRow + 3
-            ) {
-              className = styles.gridSquareOrange;
-            } else {
-              className = styles.gridSquareWhite;
-            }
-  
-            // grids.push(
-            //   <div key={`${i}-${j}`} className={className}>
-            grids.push(
-              <div 
-                key={`${i}-${j}`} 
-                className={className}
-                onClick={() => { 
-                  if (className === styles.gridSquareBlue) {
-                    window.open('https://pixelaw.github.io/book/index.html')
-                  } else if (className === styles.gridSquareGreen) {
-                    window.open('https://github.com/pixelaw/')
-                  }else if(className === styles.gridSquareOrange){
-                    window.open('https://pixelaw-core.vercel.app/')
-                  }else if(className === styles.gridSquareBrown){
-                    window.open('https://demo.pixelaw.xyz/')
-                  }
-                }}
-              >
-                {i === startRow && j === startColForRow + 1 && (
-                  <span className={styles.text}>Docs</span>
-                )}
-                {i === startRow + 1 && j === startColForRow + 1 && (
-                   <img  className={styles.imgIcon}  src={One} alt="" />
-                )}
-                {i === startRow && j === startColForRow + 5 && (
-                    <span className={styles.text}>Code</span>
-                )}
-                {i === startRow +1&& j === startColForRow + 5 && (
-                      <img className={styles.imgIcon} src={Two} alt="" />
-                )}
-                {i === startRow+5 && j === startColForRow +1 && (
-                   <img  className={styles.imgIcon}  src={Three} alt="" />
-                )}
-                {i === startRow+4 && j === startColForRow +1 && (
-                    <span className={styles.text}>Play</span>
-                )}
-                {i === startRow+4 && j === startColForRow + 5 && (
-                    <span className={styles.text}>Play</span>
-                )}
-                {i === startRow+5 && j === startColForRow + 5 && (
-                      <img className={styles.imgIcon}  src={Four} alt="" />
-                )}
-              </div>
-            );
-          } else {
-            grids.push(
-              <div key={`${i}-${j}`} className={styles.gridSquare}></div>
-            );
-          }
-          }
-          }
-    }
-    // else if(window.innerWidth  >= 1900&&gridHeight<1100){
-    //   //console.log('走这里吗',gridHeight)
-    //   const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
-    //   const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
-    //   const startCols = Array.from(
-    //     { length: 10 },
-    //     (_, index) => startCol-index
-    //   ); // 生成每行的起始列数组
-    //   //console.log(1111111)
-    //   for (let i = 0; i < numRows; i++) {
-    //     const startColForRow = startCols[i];
-       
-    //     for (let j = 0; j < numCols; j++) {
-        
-    //       if (
-    //         i >= startRow &&
-    //         i < startRow + 7 &&
-    //         j >= startColForRow &&
-    //         j < startColForRow + 7 &&
-    //         !(i === startRow + 3 || j === startColForRow + 3)
-    //       ) {
-    //         let className = "";
-    //         if (
-    //           i >= startRow &&
-    //           i < startRow + 3 &&
-    //           j >= startColForRow &&
-    //           j < startColForRow + 3
-    //         ) {
-    //           className = styles.gridSquareBlue;
-           
-    //         } else if (
-    //           i >= startRow + 4 &&
-    //           i < startRow + 7 &&
-    //           j >= startColForRow + 4 &&
-    //           j < startColForRow + 7
-    //         ) {
-    //           className = styles.gridSquareBrown;
-    //         } else if (
-    //           i >= startRow &&
-    //           i < startRow + 3 &&
-    //           j >= startColForRow + 4 &&
-    //           j < startColForRow + 7
-    //         ) {
-    //           className = styles.gridSquareGreen;
-    //         } else if (
-    //           i >= startRow + 4 &&
-    //           i < startRow + 7 &&
-    //           j >= startColForRow &&
-    //           j < startColForRow + 3
-    //         ) {
-    //           className = styles.gridSquareOrange;
-    //         } else {
-    //           className = styles.gridSquareWhite;
-    //         }
-  
-    //         // grids.push(
-    //         //   <div key={`${i}-${j}`} className={className}>
-    //         grids.push(
-    //           <div 
-    //             key={`${i}-${j}`} 
-    //             className={className}
-    //             onClick={() => { 
-    //               if (className === styles.gridSquareBlue) {
-    //                 window.open('https://pixelaw.github.io/book/index.html')
-    //               } else if (className === styles.gridSquareGreen) {
-    //                 window.open('https://github.com/pixelaw/')
-    //               }else if(className === styles.gridSquareOrange){
-    //                 window.open('https://pixelaw-core.vercel.app/')
-    //               }else if(className === styles.gridSquareBrown){
-    //                 window.open('https://demo.pixelaw.xyz/')
-    //               }
-    //             }}
-    //           >
-    //             {i === startRow && j === startColForRow + 1 && (
-    //               <span className={styles.text}>Docs</span>
-    //             )}
-    //             {i === startRow + 1 && j === startColForRow + 1 && (
-    //                <img  className={styles.imgIcon}  src={One} alt="" />
-    //             )}
-    //             {i === startRow && j === startColForRow + 5 && (
-    //                 <span className={styles.text}>Code</span>
-    //             )}
-    //             {i === startRow +1&& j === startColForRow + 5 && (
-    //                   <img className={styles.imgIcon} src={Two} alt="" />
-    //             )}
-    //             {i === startRow+5 && j === startColForRow +1 && (
-    //                <img  className={styles.imgIcon}  src={Three} alt="" />
-    //             )}
-    //             {i === startRow+4 && j === startColForRow +1 && (
-    //                 <span className={styles.text}>Play</span>
-    //             )}
-    //             {i === startRow+4 && j === startColForRow + 5 && (
-    //                 <span className={styles.text}>Play</span>
-    //             )}
-    //             {i === startRow+5 && j === startColForRow + 5 && (
-    //                   <img className={styles.imgIcon}  src={Four} alt="" />
-    //             )}
-    //           </div>
-    //         );
-    //       } else {
-    //         grids.push(
-    //           <div key={`${i}-${j}`} className={styles.gridSquare}></div>
-    //         );
-    //       }
-          
-    //     }
-    //   }
-            
-    // }
-    else {
-
-//console.log('嗯嗯嗯呃？？？？？')
-    const startRow = Math.floor(numRows / 3) - 1; // 起始行，使正方形位于中间
-    const startCol = Math.floor(numCols / 2.5) - 1; // 起始列，使正方形位于中间
-    const startCols = Array.from(
-      { length: 10 },
-      (_, index) => startCol
-    ); // 生成每行的起始列数组
-    
-    for (let i = 0; i < numRows; i++) {
-      const startColForRow = startCols[i];
-     
-      for (let j = 0; j < numCols; j++) {
-      
-        if (
-          i >= startRow &&
-          i < startRow + 7 &&
-          j >= startColForRow &&
-          j < startColForRow + 7 &&
-          !(i === startRow + 3 || j === startColForRow + 3)
-        ) {
-          let className = "";
-          if (
-            i >= startRow &&
-            i < startRow + 3 &&
-            j >= startColForRow &&
-            j < startColForRow + 3
-          ) {
-            className = styles.gridSquareBlue;
-         
-          } else if (
-            i >= startRow + 4 &&
-            i < startRow + 7 &&
-            j >= startColForRow + 4 &&
-            j < startColForRow + 7
-          ) {
-            className = styles.gridSquareBrown;
-          } else if (
-            i >= startRow &&
-            i < startRow + 3 &&
-            j >= startColForRow + 4 &&
-            j < startColForRow + 7
-          ) {
-            className = styles.gridSquareGreen;
-          } else if (
-            i >= startRow + 4 &&
-            i < startRow + 7 &&
-            j >= startColForRow &&
-            j < startColForRow + 3
-          ) {
-            className = styles.gridSquareOrange;
-          } else {
-            className = styles.gridSquareWhite;
-          }
-
-          // grids.push(
-          //   <div key={`${i}-${j}`} className={className}>
-          grids.push(
-            <div 
-              key={`${i}-${j}`} 
-              className={className}
-              onClick={() => { 
-                if (className === styles.gridSquareBlue) {
-                  window.open('https://pixelaw.github.io/book/index.html')
-                } else if (className === styles.gridSquareGreen) {
-                  window.open('https://github.com/pixelaw/')
-                }else if(className === styles.gridSquareOrange){
-                  window.open('https://pixelaw-core.vercel.app/')
-                }else if(className === styles.gridSquareBrown){
-                  window.open('https://demo.pixelaw.xyz/')
-                }
-              }}
-            >
-              {i === startRow && j === startColForRow + 1 && (
-                <span className={styles.text}>Docs</span>
-              )}
-              {i === startRow + 1 && j === startColForRow + 1 && (
-                 <img  className={styles.imgIcon}  src={One} alt="" />
-              )}
-              {i === startRow && j === startColForRow + 5 && (
-                  <span className={styles.text}>Code</span>
-              )}
-              {i === startRow +1&& j === startColForRow + 5 && (
-                    <img className={styles.imgIcon} src={Two} alt="" />
-              )}
-              {i === startRow+5 && j === startColForRow +1 && (
-                 <img  className={styles.imgIcon}  src={Three} alt="" />
-              )}
-              {i === startRow+4 && j === startColForRow +1 && (
-                  <span className={styles.text}>Play</span>
-              )}
-              {i === startRow+4 && j === startColForRow + 5 && (
-                  <span className={styles.text}>Play</span>
-              )}
-              {i === startRow+5 && j === startColForRow + 5 && (
-                    <img className={styles.imgIcon}  src={Four} alt="" />
-              )}
-            </div>
-          );
-        } else {
-          grids.push(
-            <div key={`${i}-${j}`} className={styles.gridSquare}></div>
-          );
-        }
-        
-      }
-    }
-          
-  }
-  
-    return grids;
-  };
-  // window.addEventListener("resize", () => {
-  //  renderGrid();
-  //  //console.log('变化了！！！！！')
-  //   // 将 grids 渲染到页面上，例如更新 state 或直接操作 DOM
-  // });
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth;
-      ////console.log(containerWidth)
-      const itemWidth = Math.floor(
-        containerWidth / Math.floor(containerWidth / 64)
-      );
-      ////console.log(itemWidth)
-      // if(itemWidth!==64){
-      //   containerRef.current.style.setProperty(
-      //     "--grid-item-width",
-      //     `64px`
-      //   );
-      // }else{
-        containerRef.current.style.setProperty(
-          "--grid-item-width",
-          `${itemWidth}px`
-        );
-      // }
-    
-    
-    }
-  }, [gridWidth]);
-
-  const [isWideScreen, setIsWideScreen] = useState(window.innerWidth <= 1600 || window.innerWidth >= 2100);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsWideScreen(window.innerWidth <= 1600 || window.innerWidth >= 2100);
-    };
-
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []); // 注意这里的空数组，表示 effect 仅在组件挂载和卸载时执行
 
   return (
     <>
-    <div className={styles.topCon}> <img  className={styles.containerImg}
+      <div className={styles.topCon}>
+        <img
+          className={styles.containerImg}
           src="https://demo.pixelaw.xyz/assets/logo/pixeLaw-logo.png"
           alt=""
-        /></div>
-       <div className={isWideScreen ? styles.aa : ''}>
-
-        <div className={styles.gridContainer} ref={containerRef} >
-      {renderGrid()}
-    </div>
-        </div>
-    
-    <div className={styles.footer}>pixel-based autonomous world</div>
+        />
+      </div>
+      <div
+        style={{
+          margin: 0,
+          padding: 0,
+          overflow: "hidden",
+          height: `calc(100vh - 60px)`,
+        }}
+      >
+        <canvas ref={canvasRef} style={{ display: "block" }} />
+      </div>
+      <div className={styles.footer}>pixel-based autonomous world</div>
     </>
   );
 };
