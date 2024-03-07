@@ -129,8 +129,8 @@ const App = () => {
               imgFour.src = url;
             });
 
-            const targetWidth = (len - imgOne.width) / 2; // 设置目标宽度
-            const targetHeight = (len - imgOne.width) / 2; // 设置目标高度
+            const targetWidth = (len - imgOne.width) / 1.4; // 设置目标宽度
+            const targetHeight = (len - imgOne.height) / 1.4; // 设置目标高度
         
             // 当图片加载完成后绘制到画布上
             imgOne.onload = function () {
