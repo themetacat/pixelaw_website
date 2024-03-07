@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./index.module.css"; // 假设您已经有这个样式文件
 
-import OneImge from "./20240226161301.png";
+import OneImge from "./one.svg";
 import ThreeImge from "./20240226161337.png";
 import TwoImge from "./20240226161621.png";
 import FourImge from "./20240226161401.png";
@@ -129,29 +129,34 @@ const App = () => {
               imgFour.src = url;
             });
 
-
+            const targetWidth = (len - imgOne.width) / 2; // 设置目标宽度
+            const targetHeight = (len - imgOne.width) / 2; // 设置目标高度
+        
             // 当图片加载完成后绘制到画布上
             imgOne.onload = function () {
-              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
-              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
-
+              // const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              // const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              const xOffsetOne = (len - targetWidth) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - targetHeight) / 2; // 图片一垂直居中的偏移量
+            
               // 在特定位置绘制图片一
               if (row === 1 && col === 1) {
                 ctx.drawImage(
                   imgOne,
                   x + xOffsetOne,
                   y + yOffsetOne,
-                  imgOne.width,
-                  imgOne.height
+                  targetWidth,
+                  targetHeight
                 );
               }
             };
 
             imgTwo.onload = function () {
               // 在特定位置绘制图片
-              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
-              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
-
+              // const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
+              // const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              const xOffsetOne = (len - targetWidth) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - targetHeight) / 2; // 图片一垂直居中的偏移量
               // 在特定位置绘制图片一
 
               if (row === 1 && col === 5) {
@@ -159,36 +164,36 @@ const App = () => {
                   imgTwo,
                   x + xOffsetOne,
                   y + yOffsetOne,
-                  imgOne.width,
-                  imgOne.height
+                  targetWidth,
+                  targetHeight
                 );
               }
             };
             imgThree.onload = function () {
               // 在特定位置绘制图片
-              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
-              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              const xOffsetOne = (len - targetWidth) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - targetHeight) / 2; // 图片一垂直居中的偏移量
               if (row === 5 && col === 1) {
                 ctx.drawImage(
                   imgThree,
                   x + xOffsetOne,
                   y + yOffsetOne,
-                  imgOne.width,
-                  imgOne.height
+                  targetWidth,
+                  targetHeight
                 );
               }
             };
             imgFour.onload = function () {
               // 在特定位置绘制图片
-              const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
-              const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
+              const xOffsetOne = (len - targetWidth) / 2; // 图片一水平居中的偏移量
+              const yOffsetOne = (len - targetHeight) / 2; // 图片一垂直居中的偏移量
               if (row === 5 && col === 5) {
                 ctx.drawImage(
                   imgFour,
                   x + xOffsetOne,
                   y + yOffsetOne,
-                  imgOne.width,
-                  imgOne.height
+                  targetWidth,
+                  targetHeight
                 );
               }
             };
