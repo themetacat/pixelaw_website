@@ -128,11 +128,12 @@ const App = () => {
               const url = URL.createObjectURL(blob);
               imgFour.src = url;
             });
-
-            const targetWidth = (len - imgOne.width) / 1.4; // 设置目标宽度
-            const targetHeight = (len - imgOne.height) / 1.4; // 设置目标高度
-        
+            const targetWidth = (len - imgOne.width) / 2; // 设置目标宽度
+            const targetHeight = (len - imgOne.height) /2; // 设置目标高度
+            imgOne.style.display = 'none';
             // 当图片加载完成后绘制到画布上
+console.log(len , targetWidth,targetHeight)
+
             imgOne.onload = function () {
               // const xOffsetOne = (len - imgOne.width) / 2; // 图片一水平居中的偏移量
               // const yOffsetOne = (len - imgOne.height) / 2; // 图片一垂直居中的偏移量
@@ -149,6 +150,7 @@ const App = () => {
                   targetHeight
                 );
               }
+              imgOne.style.display = 'block';
             };
 
             imgTwo.onload = function () {
