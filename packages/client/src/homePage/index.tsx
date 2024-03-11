@@ -225,9 +225,9 @@ console.log(len , targetWidth,targetHeight)
             } else if (rowClicked < 3 && colClicked > 3) {
               window.open("https://github.com/pixelaw/");
             } else if (rowClicked > 3 && colClicked < 3) {
-              window.open("https://pixelaw-core.vercel.app/");
+              window.open("https://mud.pixelaw.xyz/");
             } else if (rowClicked > 3 && colClicked > 3) {
-              window.open("https://demo.pixelaw.xyz/");
+              window.open("https://dojo.pixelaw.xyz/");
             }
 
             // console.log(`Clicked on quadrant: ${quadrant}`);
