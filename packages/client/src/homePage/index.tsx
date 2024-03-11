@@ -248,7 +248,7 @@ console.log(len , targetWidth,targetHeight)
       <div className={styles.topCon}>
         <img
           className={styles.containerImg}
-          src="https://demo.pixelaw.xyz/assets/logo/pixeLaw-logo.png"
+          src="https://dojo.pixelaw.xyz/assets/logo/pixeLaw-logo.png"
           alt=""
         />
       </div>
