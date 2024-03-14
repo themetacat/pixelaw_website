@@ -4,7 +4,7 @@ import styles from "./index.module.css"; // 假设您已经有这个样式文件
 import OneImge from "./one.svg";
 import ThreeImge from "./20240226161337.png";
 import TwoImge from "./20240226161621.png";
-import FourImge from "./20240226161401.png";
+import FourImge from "./circle.png";
 
 
 
