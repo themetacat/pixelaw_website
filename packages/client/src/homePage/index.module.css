@@ -32,5 +32,14 @@ body {
   text-align: center;
   height: 49px;
   font-size: 15px;
-  font-family: system-ui, "Segoe UI", "Helvetica Neue", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Silkscreen';
+  z-index: 999999999999;
+}
+.fontData{
+  font-family: 'Silkscreen';
+  src: url('path/to/slkscr.ttf') format('truetype'); /* 根据您的字体文件类型调整格式 */
+}
+@font-face {
+  font-family: 'Silkscreen';
+  src: url('path/to/slkscr.ttf') format('truetype'); /* 根据您的字体文件类型调整格式 */
 }
