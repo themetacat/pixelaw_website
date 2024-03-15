@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import styles from "./index.module.css"; // 假设您已经有这个样式文件
 
-import OneImge from "./one.svg";
-import ThreeImge from "./20240226161337.png";
-import TwoImge from "./20240226161621.png";
-import FourImge from "./circle.png";
+import OneImge from "./docs.svg";
+import ThreeImge from "./redstone.svg";
+import TwoImge from "./github.svg";
+import FourImge from "./starknet.svg";
 
-
+import PixeLAWLogoImge from "./pixelaw_logo.png";
 
 const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -120,8 +120,8 @@ if (row === 0 && col === 1) {
             imgThree.src = ThreeImge;
             imgFour.src = FourImge;
 
-            const targetWidth = (len - imgOne.width) / 2; // 设置目标宽度
-            const targetHeight = (len - imgOne.height) /2; // 设置目标高度
+            const targetWidth =(len/3)*2; // 设置目标高度
+            const targetHeight = (len/3)*2; // 设置目标高度
             imgOne.style.display = 'none';
             // 当图片加载完成后绘制到画布上
 console.log(len , targetWidth,targetHeight)
@@ -318,8 +318,8 @@ console.log(len , targetWidth,targetHeight)
       <div className={styles.topCon}>
         <img
           className={styles.containerImg}
-          src="https://dojo.pixelaw.xyz/assets/logo/pixeLaw-logo.png"
-          alt=""
+          src={PixeLAWLogoImge}
+          alt={'PixeLAW Logo'}
         />
       </div>
       <div
