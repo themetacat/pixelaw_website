@@ -22,7 +22,7 @@ const App = () => {
        
            console.log(ctx.font)
         const screenWidth = window.innerWidth;
-        const screenHeight = window.innerHeight - 60; // Adjust for the top container height
+        const screenHeight = window.innerHeight - 60; 
         canvas.width = screenWidth;
         canvas.height = screenHeight;
 
