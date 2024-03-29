@@ -30,8 +30,7 @@ const App = () => {
 
         // 绘制整个canvas的网格线
         ctx.strokeStyle = "#260737"; // Black color for grid lines
-          // ctx.font = styles.fontData; 
-       // 使用 Silkscreen 字体，大小为 15px
+       
         // 绘制网格线
         for (let i = 0.5; i < screenWidth; i += len) {
           ctx.beginPath();
