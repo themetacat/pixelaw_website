@@ -11,8 +11,9 @@ export const App = () => {
   // } = useMUD();
 
   // const counter = useComponentValue(Counter, singletonEntity);
-  initGA();
+ const a = initGA();
   logPageView();
+  console.log(a)
   return (
     <>
  
