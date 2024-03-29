@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import styles from "./index.module.css"; // 假设您已经有这个样式文件
+import styles from "./index.module.css"; 
 
 import OneImge from "./docs.svg";
 import ThreeImge from "./redstone.svg";
