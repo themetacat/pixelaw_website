@@ -1,7 +1,7 @@
 import { useComponentValue } from "@latticexyz/react";
 // import { useMUD } from "./MUDContext";
 import { singletonEntity } from "@latticexyz/store-sync/recs";
-import { initGA, logPageView } from './ga';
+// import { initGA, logPageView } from './ga';
 import HomePage from './homePage'
 
 export const App = () => {
@@ -11,9 +11,9 @@ export const App = () => {
   // } = useMUD();
 
   // const counter = useComponentValue(Counter, singletonEntity);
- const a = initGA();
-  logPageView();
-  console.log(a)
+//  const a = initGA();
+//   logPageView();
+//   console.log(a)
   return (
     <>
  
