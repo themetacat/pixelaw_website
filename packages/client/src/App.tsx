@@ -28,6 +28,7 @@ export const App = () => {
         Increment
       </button> */}
       <HomePage/>
+      
     </>
   );
 };

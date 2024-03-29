@@ -5,12 +5,13 @@ import OneImge from "./docs.svg";
 import ThreeImge from "./redstone.svg";
 import TwoImge from "./github.svg";
 import FourImge from "./starknet.svg";
-
+import { initGA, logPageView } from '../ga';
 import PixeLAWLogoImge from "./pixelaw_logo.png";
 
 const App = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
+  initGA();
+  logPageView();
   useEffect(() => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
